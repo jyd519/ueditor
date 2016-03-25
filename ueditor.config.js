@@ -44,7 +44,8 @@
             'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-            'print', 'preview', 'searchreplace', 'help', 'drafts'
+            'print', 'preview', 'searchreplace', 'help', 'drafts',
+            'brackets', 'roman1', 'roman2', 'roman3', 'roman4', 'mathlatex'
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
@@ -343,6 +344,7 @@
 
         //webAppKey 百度应用的APIkey，每个站长必须首先去百度官网注册一个key后方能正常使用app功能，注册介绍，http://app.baidu.com/static/cms/getapikey.html
         //, webAppKey: ""
+        , mathtexUrl: "http://172.16.21.94/cgi-bin/mathtex.cgi"
     };
 
     function getUEBasePath(docUrl, confUrl) {

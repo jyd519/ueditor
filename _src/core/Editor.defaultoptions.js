@@ -15,7 +15,7 @@ UE.Editor.defaultOptions = function(editor){
         fullscreen: false,
         readonly: false,
         zIndex: 999,
-        imagePopup: true,
+        imagePopup: false,
         enterTag: 'p',
         customDomain: false,
         lang: 'zh-cn',
@@ -27,5 +27,5 @@ UE.Editor.defaultOptions = function(editor){
         tableNativeEditInFF: false,
         autoSyncData : true,
         fileNameFormat: '{time}{rand:6}'
-    }
+    };
 };

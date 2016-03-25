@@ -8,6 +8,12 @@
     background-image: url(../images/icons.gif) \9;
 }
 
+.edui-default .edui-for-math .edui-icon {
+    background-image: url(../images/math.png) !important;
+}
+.edui-default .edui-for-mathlatex .edui-icon {
+    background-image: url(../images/math.png) !important;
+}
 .edui-default .edui-toolbar .edui-button .edui-button-wrap {
     padding: 1px;
     position: relative;

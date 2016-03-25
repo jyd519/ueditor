@@ -184,9 +184,9 @@
 
 /*spechars-dialog*/
 .edui-default .edui-for-spechars .edui-dialog-content {
-    width: 620px;
+    width: 680px;
     height: 500px;
-    *width: 630px;
+    *width: 690px;
     *height: 570px;
 }
 
@@ -291,4 +291,11 @@
 .edui-default .edui-for-music .edui-dialog-content {
     width: 515px;
     height: 360px;
+}
+
+/*image-dialog*/
+.edui-default .edui-for-mathlatex .edui-dialog-content {
+    width: 650px;
+    height: 400px;
+    overflow: hidden;
 }

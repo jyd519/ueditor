@@ -55,6 +55,7 @@
         'music':'~/dialogs/music/music.html',
         'template':'~/dialogs/template/template.html',
         'background':'~/dialogs/background/background.html',
+        'mathlatex': '~/dialogs/latex/latex.html',
         'charts': '~/dialogs/charts/charts.html'
     };
     //为工具栏添加按钮，以下都是统一的按钮触发命令，所以写在一起
@@ -64,20 +65,24 @@
         'blockquote', 'pasteplain', 'pagebreak',
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
+        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts',
+        'brackets','roman1','roman2','roman3','roman4', 'mathlatex'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
         editorui[ci] = function (cmd) {
             return function (editor) {
+                var btnLabel = editor.getLang("btnMap." + cmd + ".label") || '';
                 var ui = new editorui.Button({
                     className:'edui-for-' + cmd,
                     title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '',
+                    label: btnLabel,
+                    showText: !!btnLabel,
+                    showIcon: !btnLabel,
                     onclick:function () {
                         editor.execCommand(cmd);
                     },
-                    theme:editor.options.theme,
-                    showText:false
+                    theme:editor.options.theme
                 });
                 editorui.buttons[cmd] = ui;
                 editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
@@ -183,7 +188,7 @@
     var dialogBtns = {
         noOk:['searchreplace', 'help', 'spechars', 'webapp','preview'],
         ok:['attachment', 'anchor', 'link', 'insertimage', 'map', 'gmap', 'insertframe', 'wordimage',
-            'insertvideo', 'insertframe', 'edittip', 'edittable', 'edittd', 'scrawl', 'template', 'music', 'background', 'charts']
+            'insertvideo', 'insertframe', 'edittip', 'edittable', 'edittd', 'scrawl', 'template', 'music', 'background', 'charts', 'mathlatex']
     };
 
     for (var p in dialogBtns) {

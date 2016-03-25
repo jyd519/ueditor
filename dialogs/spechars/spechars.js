@@ -5,6 +5,13 @@
  * Time: 下午1:09
  * To change this template use File | Settings | File Templates.
  */
+function getContextPath() {
+  var pathname = window.location.pathname;
+  if (pathname.indexOf("/ueditor")!=-1) {
+    return pathname.substr(0, pathname.indexOf("/ueditor"));;
+  }
+  return "";
+}
 var charsContent = [
     { name:"tsfh", title:lang.tsfh, content:toArray("、,。,·,ˉ,ˇ,¨,〃,々,—,～,‖,…,‘,’,“,”,〔,〕,〈,〉,《,》,「,」,『,』,〖,〗,【,】,±,×,÷,∶,∧,∨,∑,∏,∪,∩,∈,∷,√,⊥,∥,∠,⌒,⊙,∫,∮,≡,≌,≈,∽,∝,≠,≮,≯,≤,≥,∞,∵,∴,♂,♀,°,′,″,℃,＄,¤,￠,￡,‰,§,№,☆,★,○,●,◎,◇,◆,□,■,△,▲,※,→,←,↑,↓,〓,〡,〢,〣,〤,〥,〦,〧,〨,〩,㊣,㎎,㎏,㎜,㎝,㎞,㎡,㏄,㏎,㏑,㏒,㏕,︰,￢,￤,℡,ˊ,ˋ,˙,–,―,‥,‵,℅,℉,↖,↗,↘,↙,∕,∟,∣,≒,≦,≧,⊿,═,║,╒,╓,╔,╕,╖,╗,╘,╙,╚,╛,╜,╝,╞,╟,╠,╡,╢,╣,╤,╥,╦,╧,╨,╩,╪,╫,╬,╭,╮,╯,╰,╱,╲,╳,▁,▂,▃,▄,▅,▆,▇,�,█,▉,▊,▋,▌,▍,▎,▏,▓,▔,▕,▼,▽,◢,◣,◤,◥,☉,⊕,〒,〝,〞")},
     { name:"lmsz", title:lang.lmsz, content:toArray("ⅰ,ⅱ,ⅲ,ⅳ,ⅴ,ⅵ,ⅶ,ⅷ,ⅸ,ⅹ,Ⅰ,Ⅱ,Ⅲ,Ⅳ,Ⅴ,Ⅵ,Ⅶ,Ⅷ,Ⅸ,Ⅹ,Ⅺ,Ⅻ")},
@@ -14,6 +21,13 @@ var charsContent = [
     { name:"ewzm", title:lang.ewzm, content:toArray("А,Б,В,Г,Д,Е,Ё,Ж,З,И,Й,К,Л,М,Н,О,П,Р,С,Т,У,Ф,Х,Ц,Ч,Ш,Щ,Ъ,Ы,Ь,Э,Ю,Я,а,б,в,г,д,е,ё,ж,з,и,й,к,л,м,н,о,п,р,с,т,у,ф,х,ц,ч,ш,щ,ъ,ы,ь,э,ю,я")},
     { name:"pyzm", title:lang.pyzm, content:toArray("ā,á,ǎ,à,ē,é,ě,è,ī,í,ǐ,ì,ō,ó,ǒ,ò,ū,ú,ǔ,ù,ǖ,ǘ,ǚ,ǜ,ü")},
     { name:"yyyb", title:lang.yyyb, content:toArray("i:,i,e,æ,ʌ,ə:,ə,u:,u,ɔ:,ɔ,a:,ei,ai,ɔi,əu,au,iə,εə,uə,p,t,k,b,d,g,f,s,ʃ,θ,h,v,z,ʒ,ð,tʃ,tr,ts,dʒ,dr,dz,m,n,ŋ,l,r,w,j,")},
+    { name: "sjqy", title: "钢筋符号", content: [
+      '<img class="gjfh" src="' + getContextPath() +'/file/images/gj-a.png">',
+      '<img class="gjfh" src="' + getContextPath() +'/file/images/gj-b.png">',
+      '<img class="gjfh" src="' + getContextPath() +'/file/images/gj-c.png">',
+      '<img class="gjfh" src="' + getContextPath() +'/file/images/gj-d.png">',
+      '<img class="gjfh" src="' + getContextPath() +'/file/images/gj-e.png">']
+    },
     { name:"zyzf", title:lang.zyzf, content:toArray("ㄅ,ㄆ,ㄇ,ㄈ,ㄉ,ㄊ,ㄋ,ㄌ,ㄍ,ㄎ,ㄏ,ㄐ,ㄑ,ㄒ,ㄓ,ㄔ,ㄕ,ㄖ,ㄗ,ㄘ,ㄙ,ㄚ,ㄛ,ㄜ,ㄝ,ㄞ,ㄟ,ㄠ,ㄡ,ㄢ,ㄣ,ㄤ,ㄥ,ㄦ,ㄧ,ㄨ")}
 ];
 (function createTab(content) {
@@ -44,7 +58,7 @@ var charsContent = [
             var charSpan = document.createElement("span");
             charSpan.innerHTML = con;
             domUtils.on(charSpan, "click", function () {
-                editor.execCommand("insertHTML", this.innerHTML);
+                editor.execCommand("insertHTML", this.nodeName=="IMG"? this.outerHTML : this.innerHTML);
                 dialog.close();
             });
             div.appendChild(charSpan);

@@ -29,7 +29,8 @@
         }
 
         var img = editor.selection.getRange().getClosedNode();
-        if (img && img.tagName && img.tagName.toLowerCase() == 'img') {
+        if (img && img.tagName && img.tagName.toLowerCase() == 'img' &&
+             !domUtils.hasClass(img, 'item-latex')) {
             setTabFocus('remote');
         } else {
             setTabFocus('upload');
@@ -163,7 +164,7 @@
                 'align': $G('align')
             };
             var img = editor.selection.getRange().getClosedNode();
-            if (img) {
+            if (img && !domUtils.hasClass(img, 'item-latex')) {
                 this.setImage(img);
             }
         },

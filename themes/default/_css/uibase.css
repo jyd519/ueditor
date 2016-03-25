@@ -101,6 +101,8 @@ div.edui-box {
  */
 .edui-default .edui-label {
     cursor: default;
+    font-size: 80%;
+    line-height: 20px;
 }
 
 .edui-default span.edui-clickable {

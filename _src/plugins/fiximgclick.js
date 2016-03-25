@@ -240,7 +240,9 @@ UE.plugins['fiximgclick'] = (function () {
                     img = range.getClosedNode();
 
                 if (img && img.tagName == 'IMG' && me.body.contentEditable!="false") {
-
+                    if (img.className.indexOf("item-latex") != -1) {
+                      return;
+                    }
                     if (img.className.indexOf("edui-faked-music") != -1 ||
                         img.getAttribute("anchorname") ||
                         domUtils.hasClass(img, 'loadingclass') ||

@@ -16,3 +16,12 @@
 .edui-default .edui-toolbar .edui-combox {
     margin: 1px;
 }
+.edui-default .edui-for-brackets .edui-label,
+.edui-default .edui-for-roman1 .edui-label,
+.edui-default .edui-for-roman2 .edui-label,
+.edui-default .edui-for-roman3 .edui-label,
+.edui-default .edui-for-roman4 .edui-label {
+	width: 20px;
+	text-align:center;
+}
+

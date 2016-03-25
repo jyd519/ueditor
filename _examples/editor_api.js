@@ -90,6 +90,8 @@
             'plugins/simpleupload.js',
             'plugins/serverparam.js',
             'plugins/insertfile.js',
+            'plugins/roman.number.js',
+            'plugins/mathlatex.js',
             'ui/ui.js',
             'ui/uiutils.js',
             'ui/uibase.js',
