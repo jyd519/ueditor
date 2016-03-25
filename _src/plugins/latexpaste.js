@@ -1,5 +1,5 @@
 //支持粘贴LaTex
-UE.plugins['pastelatex'] = function() {
+UE.plugins['latex'] = function() {
   'use strict';
   var me = this;
   var pasteLatexMode = false;
@@ -84,7 +84,7 @@ UE.plugins['pastelatex'] = function() {
         img = range.getClosedNode();
       if (img && img.tagName == 'IMG' && me.body.contentEditable != "false") {
         if (img.className.indexOf("item-latex") != -1) {
-          var dialog = me.ui._dialogs.mathlatexDialog;
+          var dialog = me.ui._dialogs.insertlatexDialog;
           dialog.open();
           return;
         }

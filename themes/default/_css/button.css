@@ -11,7 +11,7 @@
 .edui-default .edui-for-math .edui-icon {
     background-image: url(../images/math.png) !important;
 }
-.edui-default .edui-for-mathlatex .edui-icon {
+.edui-default .edui-for-insertlatex .edui-icon {
     background-image: url(../images/math.png) !important;
 }
 .edui-default .edui-toolbar .edui-button .edui-button-wrap {

@@ -294,7 +294,7 @@
 }
 
 /*image-dialog*/
-.edui-default .edui-for-mathlatex .edui-dialog-content {
+.edui-default .edui-for-insertlatex .edui-dialog-content {
     width: 650px;
     height: 400px;
     overflow: hidden;

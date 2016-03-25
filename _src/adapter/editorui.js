@@ -55,7 +55,7 @@
         'music':'~/dialogs/music/music.html',
         'template':'~/dialogs/template/template.html',
         'background':'~/dialogs/background/background.html',
-        'mathlatex': '~/dialogs/latex/latex.html',
+        'insertlatex': '~/dialogs/latex/latex.html',
         'charts': '~/dialogs/charts/charts.html'
     };
     //为工具栏添加按钮，以下都是统一的按钮触发命令，所以写在一起
@@ -66,7 +66,7 @@
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
         'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts',
-        'brackets','roman1','roman2','roman3','roman4', 'mathlatex'];
+        'brackets','roman1','roman2','roman3','roman4', 'insertlatex', 'pastelatex'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
@@ -188,7 +188,7 @@
     var dialogBtns = {
         noOk:['searchreplace', 'help', 'spechars', 'webapp','preview'],
         ok:['attachment', 'anchor', 'link', 'insertimage', 'map', 'gmap', 'insertframe', 'wordimage',
-            'insertvideo', 'insertframe', 'edittip', 'edittable', 'edittd', 'scrawl', 'template', 'music', 'background', 'charts', 'mathlatex']
+            'insertvideo', 'insertframe', 'edittip', 'edittable', 'edittd', 'scrawl', 'template', 'music', 'background', 'charts', 'insertlatex']
     };
 
     for (var p in dialogBtns) {
