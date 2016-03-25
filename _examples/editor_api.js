@@ -92,6 +92,7 @@
             'plugins/insertfile.js',
             'plugins/roman.number.js',
             'plugins/mathlatex.js',
+            'plugins/latexpaste.js',
             'ui/ui.js',
             'ui/uiutils.js',
             'ui/uibase.js',

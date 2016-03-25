@@ -1,41 +1,20 @@
-UE.registerUI('latexpaste', function(editor, uiName) {
+//支持粘贴LaTex
+UE.plugins['pastelatex'] = function() {
   'use strict';
+  var me = this;
   var pasteLatexMode = false;
 
-  editor.registerCommand(uiName, {
+  me.commands['pastelatex'] = {
     execCommand: function() {
       pasteLatexMode = !pasteLatexMode;
     },
     queryCommandState: function() {
       return pasteLatexMode ? 1 : 0;
+    },
+    notNeedUndo: function() {
+      return 1;
     }
-  });
-  var btn = new UE.ui.Button({
-    //按钮的名字
-    name: uiName,
-    label: "LaTex",
-    showIcon: false,
-    //提示
-    title: "粘贴LaTex公式",
-    //添加额外样式，指定icon图标，这里默认使用一个重复的icon
-    cssRules: 'background-position: -500px 0;',
-    //点击时执行的命令
-    onclick: function() {
-      //这里可以不用执行命令,做你自己的操作也可
-      editor.execCommand(uiName);
-    }
-  });
-  //当点到编辑内容上时，按钮要做的状态反射
-  editor.addListener('selectionchange', function() {
-    var state = editor.queryCommandState(uiName);
-    if (state === -1) {
-      btn.setDisabled(true);
-      btn.setChecked(false);
-    } else {
-      btn.setDisabled(false);
-      btn.setChecked(state);
-    }
-  });
+  };
 
   function getClipboardData(callback) {
     var doc = this.document;
@@ -77,11 +56,9 @@ UE.registerUI('latexpaste', function(editor, uiName) {
       callback(pastebin);
     }, 0);
   }
-  var domUtils = baidu.editor.dom.domUtils,
-    browser = baidu.editor.browser;
 
-  editor.addListener('ready', function() {
-    domUtils.on(editor.body, browser.ie || browser.opera ? 'keydown' : 'paste', function(e) {
+  me.addListener('ready', function() {
+    domUtils.on(me.body, browser.ie || browser.opera ? 'keydown' : 'paste', function(e) {
       if (!pasteLatexMode) {
         return;
       }
@@ -89,30 +66,29 @@ UE.registerUI('latexpaste', function(editor, uiName) {
       if ((browser.ie || browser.opera) && ((!e.ctrlKey && !e.metaKey) || e.keyCode != '86')) {
         return;
       }
-      var mathtexUrl = editor.options.mathtexUrl;
-      if (mathtexUrl.indexOf('?')<0) {
+      var mathtexUrl = me.options.mathtexUrl;
+      if (mathtexUrl.indexOf('?') < 0) {
         mathtexUrl += '?';
       }
-      getClipboardData.call(editor, function(div) {
+      getClipboardData.call(me, function(div) {
         var text = $(div).text();
         var $img = $('<img>').attr('data-latex', text)
           .attr('src', mathtexUrl + text)
           .addClass('item-latex');
-        editor.execCommand('inserthtml', $img.wrap('<div>').parent().html());
+        me.execCommand('inserthtml', $img.wrap('<div>').parent().html());
       });
     });
 
-    domUtils.on(editor.body, 'dblclick', function(e) {
-      var range = editor.selection.getRange(),
+    domUtils.on(me.body, 'dblclick', function(e) {
+      var range = me.selection.getRange(),
         img = range.getClosedNode();
-        if (img && img.tagName == 'IMG' && editor.body.contentEditable!="false") {
-          if (img.className.indexOf("item-latex") != -1) {
-            editor.execCommand("latexdialog");
-            return; 
-          }
+      if (img && img.tagName == 'IMG' && me.body.contentEditable != "false") {
+        if (img.className.indexOf("item-latex") != -1) {
+          var dialog = me.ui._dialogs.mathlatexDialog;
+          dialog.open();
+          return;
         }
+      }
     });
   });
-
-  //return btn;
-});
+};
