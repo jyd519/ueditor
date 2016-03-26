@@ -3,7 +3,8 @@
  */
 (function() {
   'use strict';
-  var remoteImage;
+  var latexPanel;
+  var MQ, mathField;
 
   window.onload = function() {
     initTabs();
@@ -52,13 +53,29 @@
     }
     switch (id) {
       case 'remote':
-        remoteImage = remoteImage || new RemoteImage();
+        latexPanel = latexPanel || new LatexPanel();
+        break;
+      case 'mathquill':
+        mathField.latex($('#latex').val()); 
         break;
     }
   }
 
   /* 初始化onok事件 */
   function initButtons() {
+
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = $('#mathlatex');
+
+    MQ = MathQuill.getInterface(2); // for backcompat
+    mathField = MQ.MathField(mathFieldSpan, {
+      spaceBehavesLikeTab: true, // configurable
+      handlers: {
+        edit: function() { // useful event handlers
+          $('#latex').val(mathField.latex());
+        }
+      }
+    });
 
     dialog.onok = function() {
       var remote = false,
@@ -71,16 +88,8 @@
         }
       }
 
-      switch (id) {
-        case 'remote':
-          list = remoteImage.getInsertList();
-          break;
-        case 'upload':
-          break;
-      }
-
-      if (list) {
-        var text = $('#latex').val();
+      var text = $('#latex').val();
+      if (text) {
         editor.execCommand('insertlatex', { latex: text });
       }
     };
@@ -88,11 +97,11 @@
 
 
   /* 在线图片 */
-  function RemoteImage(target) {
+  function LatexPanel(target) {
     this.container = utils.isString(target) ? document.getElementById(target) : target;
     this.init();
   }
-  RemoteImage.prototype = {
+  LatexPanel.prototype = {
     init: function() {
       this.initContainer();
       this.initEvents();

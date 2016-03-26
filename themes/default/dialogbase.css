@@ -70,7 +70,6 @@ body {
 }
 
 .tabhead span.focus {
-    height: 31px;
     border-bottom: none;
     background: #fff;
 }

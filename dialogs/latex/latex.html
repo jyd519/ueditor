@@ -5,8 +5,10 @@
     <title>公式编辑</title>
     <script type="text/javascript" src="../internal.js"></script>
 
+    <link href="../../third-party/mathquill/mathquill.css" rel="stylesheet" >
     <!-- jquery -->
     <script type="text/javascript" src="../../third-party/jquery-1.10.2.min.js"></script>
+    <script src="../../third-party/mathquill/mathquill.js"></script>
 
     <link href="latex.css" rel="stylesheet" type="text/css">
 </head>
@@ -15,6 +17,7 @@
     <div class="wrapper">
         <div id="tabhead" class="tabhead">
             <span class="tab" data-content-id="remote">LaTex公式</span>
+            <span class="tab" data-content-id="mathquill">公式编辑</span>
         </div>
         <div id="tabbody" class="tabbody">
             <div id="remote" class="panel">
@@ -22,10 +25,19 @@
                   <input class="text" id="url" type="text"/>
                   <div class="row latex-row" style="height: auto;">
                     <label style="vertical-align: top">LaTex</label>
-                    <textarea id="latex" rows="3" style="resize: none;"></textarea>
+                    <textarea id="latex" rows="3" autocorrect=off></textarea>
                   </div>
                 </div>
                 <div id="preview">
+                </div>
+            </div>
+
+            <div id="mathquill" class="panel">
+                <div class="top">
+                    <p>请输入公式: <span id="math-field"></span></p>
+                    <p class="help-block">
+                   基于mathquill,目前不支持矩阵。 
+                    </p>
                 </div>
             </div>
         </div>
