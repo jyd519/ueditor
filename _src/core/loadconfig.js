@@ -1,4 +1,7 @@
 (function(){
+  
+    //Cache ueditor config for reducing server requests
+    var _serverConfigCache = {};
 
     UE.Editor.prototype.loadServerConfig = function(){
         var me = this;
@@ -8,6 +11,14 @@
 
                 var configUrl = me.getActionUrl('config'),
                     isJsonp = utils.isCrossDomainUrl(configUrl);
+
+                var config = _serverConfigCache[configUrl];
+                if (config) {
+                    utils.extend(me.options, config);
+                    me.fireEvent('serverConfigLoaded');
+                    me._serverConfigLoaded = true;
+                    return;
+                }
 
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
@@ -21,7 +32,9 @@
                             utils.extend(me.options, config);
                             me.fireEvent('serverConfigLoaded');
                             me._serverConfigLoaded = true;
+                            _serverConfigCache[configUrl] = config;
                         } catch (e) {
+                            delete _serverConfigCache[configUrl];
                             showErrorMsg(me.getLang('loadconfigFormatError'));
                         }
                     },
