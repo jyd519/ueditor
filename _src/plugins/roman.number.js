@@ -3,7 +3,7 @@ UE.commands['brackets'] = {
   execCommand: function(cmdName) {
     var me = this;
     if (me.queryCommandState(cmdName) !== -1) {
-      this.execCommand('insertHtml', '（　　）');
+      this.execCommand('insertHtml', '（    ）');
       return true;
     }
   }

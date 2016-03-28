@@ -7,6 +7,21 @@
   var MQ, mathField;
 
   window.onload = function() {
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = $('#mathlatex');
+
+    MQ = MathQuill.getInterface(2); // for backcompat
+    mathField = MQ.MathField(mathFieldSpan, {
+      spaceBehavesLikeTab: true, // configurable
+      handlers: {
+        edit: function() { // useful event handlers
+          if (mathField.latex()) {
+            $('#latex').val(mathField.latex());
+          }
+        }
+      }
+    });
+
     initTabs();
     initButtons();
   };
@@ -33,7 +48,7 @@
     if (img && img.tagName && img.tagName.toLowerCase() === 'img') {
       setTabFocus('remote');
     } else {
-      setTabFocus('remote');
+      setTabFocus('mathquill');
     }
   }
 
@@ -54,28 +69,17 @@
     switch (id) {
       case 'remote':
         latexPanel = latexPanel || new LatexPanel();
+        $('#latex').focus();
         break;
       case 'mathquill':
         mathField.latex($('#latex').val()); 
+        mathField.focus();
         break;
     }
   }
 
   /* 初始化onok事件 */
   function initButtons() {
-
-    var mathFieldSpan = document.getElementById('math-field');
-    var latexSpan = $('#mathlatex');
-
-    MQ = MathQuill.getInterface(2); // for backcompat
-    mathField = MQ.MathField(mathFieldSpan, {
-      spaceBehavesLikeTab: true, // configurable
-      handlers: {
-        edit: function() { // useful event handlers
-          $('#latex').val(mathField.latex());
-        }
-      }
-    });
 
     dialog.onok = function() {
       var remote = false,
