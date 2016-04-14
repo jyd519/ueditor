@@ -46,6 +46,9 @@ UE.plugins['catchremoteimage'] = function () {
             if (ci.getAttribute("word_img")) {
                 continue;
             }
+            if (ci.getAttribute("data-latex")) {
+                continue;
+            }
             var src = ci.getAttribute("_src") || ci.src || "";
             if (/^(https?|ftp):/i.test(src) && !test(src, catcherLocalDomain)) {
                 remoteImages.push(src);

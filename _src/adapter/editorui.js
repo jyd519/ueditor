@@ -55,7 +55,7 @@
         'music':'~/dialogs/music/music.html',
         'template':'~/dialogs/template/template.html',
         'background':'~/dialogs/background/background.html',
-        'insertlatex': '~/dialogs/latex/latex.html',
+        'insertlatex': '~/dialogs/latex/latex.html?v2',
         'charts': '~/dialogs/charts/charts.html'
     };
     //为工具栏添加按钮，以下都是统一的按钮触发命令，所以写在一起

@@ -3,9 +3,25 @@
  */
 (function() {
   'use strict';
-  var remoteImage;
+  var latexPanel;
+  var MQ, mathField;
 
   window.onload = function() {
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = $('#mathlatex');
+
+    MQ = MathQuill.getInterface(2); // for backcompat
+    mathField = MQ.MathField(mathFieldSpan, {
+      spaceBehavesLikeTab: true, // configurable
+      handlers: {
+        edit: function() { // useful event handlers
+          if (mathField.latex()) {
+            $('#latex').val(mathField.latex());
+          }
+        }
+      }
+    });
+
     initTabs();
     initButtons();
   };
@@ -28,11 +44,47 @@
       });
     }
 
+    $('.edui-tab-nav').on('click', '.edui-tab-item', function(e) {
+        var idx = $(this).index();
+        $('.edui-tab-item').removeClass('edui-active')
+          .eq(idx).addClass('edui-active');
+
+        $('.edui-tab-pane').removeClass("edui-active")
+        .eq(idx).addClass('edui-active');
+
+        e.preventDefault();
+    });
+
+    $('.btn-insert-formula').click(function(){
+        var $popup = $('.edui-popup-formula');
+        $popup.toggle();
+        if ($popup.has(':visible').length>0) {
+          var pos = $(this).position();
+          $popup.css({left: pos.left+$(this).outerWidth()-$popup.outerWidth(), 
+            top: pos.top+$(this).height()+4});
+          $('.edui-popup-caret').css('left', $popup.outerWidth()- $(this).outerWidth()/2 - 10); 
+          $(document).on('mousedown.edui-formula', function(e) {
+            if ($popup.has(e.target).length>0) {
+              return;
+            }
+            $popup.hide();
+            $(document).off('click.edui-formula'); 
+          });
+        }
+    });
+
+    $('.edui-popup-formula').on('click', '.edui-formula-latex-item', function() {
+      var latex = $(this).data('latex');
+      mathField.focus();
+      mathField.write(latex);
+      $(this).parents('.edui-popup-formula').hide(); 
+    });
+
     var img = editor.selection.getRange().getClosedNode();
     if (img && img.tagName && img.tagName.toLowerCase() === 'img') {
       setTabFocus('remote');
     } else {
-      setTabFocus('remote');
+      setTabFocus('mathquill');
     }
   }
 
@@ -52,7 +104,12 @@
     }
     switch (id) {
       case 'remote':
-        remoteImage = remoteImage || new RemoteImage();
+        latexPanel = latexPanel || new LatexPanel();
+        $('#latex').focus();
+        break;
+      case 'mathquill':
+        mathField.latex($('#latex').val()); 
+        mathField.focus();
         break;
     }
   }
@@ -71,16 +128,8 @@
         }
       }
 
-      switch (id) {
-        case 'remote':
-          list = remoteImage.getInsertList();
-          break;
-        case 'upload':
-          break;
-      }
-
-      if (list) {
-        var text = $('#latex').val();
+      var text = $('#latex').val();
+      if (text) {
         editor.execCommand('insertlatex', { latex: text });
       }
     };
@@ -88,11 +137,11 @@
 
 
   /* 在线图片 */
-  function RemoteImage(target) {
+  function LatexPanel(target) {
     this.container = utils.isString(target) ? document.getElementById(target) : target;
     this.init();
   }
-  RemoteImage.prototype = {
+  LatexPanel.prototype = {
     init: function() {
       this.initContainer();
       this.initEvents();

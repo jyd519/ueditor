@@ -11,6 +11,10 @@ UE.commands['insertlatex'] = {
             img = range.getClosedNode();
 						
 				var mathtexUrl = me.options.mathtexUrl;
+        if (!mathtexUrl) {
+          console.log("mathtexUrl not configed.");
+          return;
+        }
 				if (mathtexUrl.indexOf('?')<0) {
 					mathtexUrl += '?';
 				}
