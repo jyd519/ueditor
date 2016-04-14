@@ -44,6 +44,42 @@
       });
     }
 
+    $('.edui-tab-nav').on('click', '.edui-tab-item', function(e) {
+        var idx = $(this).index();
+        $('.edui-tab-item').removeClass('edui-active')
+          .eq(idx).addClass('edui-active');
+
+        $('.edui-tab-pane').removeClass("edui-active")
+        .eq(idx).addClass('edui-active');
+
+        e.preventDefault();
+    });
+
+    $('.btn-insert-formula').click(function(){
+        var $popup = $('.edui-popup-formula');
+        $popup.toggle();
+        if ($popup.has(':visible').length>0) {
+          var pos = $(this).position();
+          $popup.css({left: pos.left+$(this).outerWidth()-$popup.outerWidth(), 
+            top: pos.top+$(this).height()+4});
+          $('.edui-popup-caret').css('left', $popup.outerWidth()- $(this).outerWidth()/2 - 10); 
+          $(document).on('mousedown.edui-formula', function(e) {
+            if ($popup.has(e.target).length>0) {
+              return;
+            }
+            $popup.hide();
+            $(document).off('click.edui-formula'); 
+          });
+        }
+    });
+
+    $('.edui-popup-formula').on('click', '.edui-formula-latex-item', function() {
+      var latex = $(this).data('latex');
+      mathField.focus();
+      mathField.write(latex);
+      $(this).parents('.edui-popup-formula').hide(); 
+    });
+
     var img = editor.selection.getRange().getClosedNode();
     if (img && img.tagName && img.tagName.toLowerCase() === 'img') {
       setTabFocus('remote');

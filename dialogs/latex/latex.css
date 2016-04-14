@@ -99,13 +99,16 @@ input.text:focus, textarea:focus{
   width: 100%;
   margin-bottom: 2px;
   resize: none;
+  height: 150px;
+  font-family: monospace;
+  font-size: 18px;
 }
 
 #remote #preview{
     clear: both;
     width: 100%;
-    height: 200px;
-    line-height: 200px;
+    height: 130px;
+    line-height: 130px;
     text-align: center;
     z-index: 9999;
     margin-top: 10px;
@@ -129,8 +132,9 @@ input.text:focus, textarea:focus{
   padding: 0.5em;
   border: 1px solid #dcdcdc;
   border-radius: 4px;
-  min-height: 200px;
+  height: 260px;
   max-height: 260px;
+  font-size: 18px;
 }
 
 #math-field.mq-focused {
@@ -148,3 +152,94 @@ input.text:focus, textarea:focus{
 .help-block {
   margin-top: 5px;
 }
+
+.clear {
+  clear: both;
+}
+
+/*formula popup*/
+.btn-insert-formula {
+  color: #08c;
+  float: right;
+  text-decoration: initial;
+}
+
+.edui-popup {
+  background: url(images/pop-bg.png) repeat #fff;
+  display: none;
+  padding: 2px;
+}
+
+.edui-popup .edui-popup-body {
+    border: 1px solid #bfbfbf;
+    background-color: #fff;
+}
+.edui-formula-wrapper {
+  padding: 15px;
+}
+
+
+.edui-tab-text {
+  border-bottom-color: transparent;
+  background-color: #fff;
+  padding: 8px 12px;
+  color: #555;
+}
+.edui-popup .edui-popup-caret.up {
+    background: url(images/caret.png) no-repeat 0 0;
+}
+.edui-popup .edui-popup-caret {
+    width: 21px;
+    height: 11px;
+}
+
+ul.edui-tab-nav {
+    border-bottom: 1px solid #dcdcdc;
+}
+
+li.edui-tab-item {
+    float: left;
+    padding: 10px 0;
+    margin: 0 5px;
+}
+
+li.edui-tab-item.edui-active {
+    border: 1px solid #dcdcdc;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+}
+li.edui-tab-item a {
+  color: #08c;
+  cursor: pointer;
+  text-decoration: initial;
+}
+
+li.edui-tab-item.edui-active a {
+  color: #999;
+}
+
+.edui-popup-formula .edui-formula-wrapper .edui-tab-pane .edui-formula-latex-item {
+    display: block;
+    float: left;
+    margin: 0px 3px 3px 0px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #cccccc;
+    background-image: url("images/formula.png");
+    cursor: pointer;
+}
+
+.edui-tab-content {
+  margin-top: 5px;
+}
+
+.edui-tab-pane {
+  display: none;
+}
+
+.edui-tab-pane.edui-active {
+  display: block;
+}
+
+
+

@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../../third-party/jquery-1.10.2.min.js"></script>
     <script src="../../third-party/mathquill/mathquill.js"></script>
 
-    <link href="latex.css" rel="stylesheet" type="text/css">
+    <link href="latex.css?v2" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -34,14 +34,121 @@
 
             <div id="mathquill" class="panel">
                 <div class="top">
-                    <p>请输入公式: <span id="math-field"></span></p>
-                    <p class="help-block">
-                   基于mathquill,目前不支持矩阵。 
-                    </p>
+                <a class="btn btn-insert-formula" href="javascript:void(0);">插入公式</a>
+                <p>请输入公式: <span id="math-field"></span></p>
+                <p class="help-block">基于mathquill,目前不支持矩阵。 </p>
+                  <div class="edui-dropdown-menu edui-popup edui-popup-formula" 
+                       style="z-index: 1000; width: 350px; top: 58px; left: 247px; position: absolute;">
+                    <div class="edui-popup-body" onmousedown="return false">
+                      <div class="edui-formula-wrapper">
+                        <ul class="edui-tab-nav">
+                          <li class="edui-tab-item edui-active">
+                            <a href="javascript:void(0);" class="edui-tab-text">常用公式</a>
+                          </li>
+                          <li class="edui-tab-item">
+                            <a href="javascript:void(0);" class="edui-tab-text">符号</a>
+                          </li>
+                          <li class="edui-tab-item">
+                            <a href="javascript:void(0);" class="edui-tab-text">字母</a>
+                          </li>
+                          <li class="clear" />
+                        </ul>
+                        <div class="edui-tab-content">
+                          <div class="edui-tab-pane edui-active">
+                            <ul>
+                              <li class="edui-formula-latex-item" data-latex="\frac{ }{ }" style="background-position:-0px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="^{ }/_{ }" style="background-position:-30px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="x^{ }" style="background-position:-60px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="x_{ }" style="background-position:-90px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="x^{ }_{ }" style="background-position:-120px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\bar{ }" style="background-position:-150px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\sqrt{ }" style="background-position:-180px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\nthroot{ }{ }" style="background-position:-210px -0px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\sum^{ }_{n=}" style="background-position:-0px -30px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\sum" style="background-position:-30px -30px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\log_{ }" style="background-position:-60px -30px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\ln" style="background-position:-90px -30px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\int_{ }^{ }" style="background-position:-120px -30px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\oint_{ }^{ }" style="background-position:-150px -30px"></li>
+                            </ul>
+                          </div>
+                          <div class="edui-tab-pane">
+                            <ul>
+                              <li class="edui-formula-latex-item" data-latex="+" style="background-position:-0px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="-" style="background-position:-30px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\pm" style="background-position:-60px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\times" style="background-position:-90px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\ast" style="background-position:-120px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\div" style="background-position:-150px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="/" style="background-position:-180px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\bigtriangleup" style="background-position:-210px -60px"></li>
+                              <li class="edui-formula-latex-item" data-latex="=" style="background-position:-0px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\ne" style="background-position:-30px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\approx" style="background-position:-60px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex=">" style="background-position:-90px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="<" style="background-position:-120px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\ge" style="background-position:-150px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\le" style="background-position:-180px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\infty" style="background-position:-210px -90px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\cap" style="background-position:-0px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\cup" style="background-position:-30px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\because" style="background-position:-60px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\therefore" style="background-position:-90px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\subset" style="background-position:-120px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\supset" style="background-position:-150px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\subseteq" style="background-position:-180px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\supseteq" style="background-position:-210px -120px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\nsubseteq" style="background-position:-0px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\nsupseteq" style="background-position:-30px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\in" style="background-position:-60px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\ni" style="background-position:-90px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\notin" style="background-position:-120px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\mapsto" style="background-position:-150px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\leftarrow" style="background-position:-180px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\rightarrow" style="background-position:-210px -150px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Leftarrow" style="background-position:-0px -180px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Rightarrow" style="background-position:-30px -180px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\leftrightarrow" style="background-position:-60px -180px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Leftrightarrow" style="background-position:-90px -180px"></li>
+                            </ul>
+                          </div>
+                          <div class="edui-tab-pane">
+                            <ul>
+                              <li class="edui-formula-latex-item" data-latex="\alpha" style="background-position:-0px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\beta" style="background-position:-30px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\gamma" style="background-position:-60px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\delta" style="background-position:-90px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\varepsilon" style="background-position:-120px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\varphi" style="background-position:-150px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\lambda" style="background-position:-180px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\mu" style="background-position:-210px -210px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\rho" style="background-position:-0px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\sigma" style="background-position:-30px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\omega" style="background-position:-60px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Gamma" style="background-position:-90px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Delta" style="background-position:-120px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Theta" style="background-position:-150px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Lambda" style="background-position:-180px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Xi" style="background-position:-210px -240px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Pi" style="background-position:-0px -270px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Sigma" style="background-position:-30px -270px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Upsilon" style="background-position:-60px -270px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Phi" style="background-position:-90px -270px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Psi" style="background-position:-120px -270px"></li>
+                              <li class="edui-formula-latex-item" data-latex="\Omega" style="background-position:-150px -270px"></li>
+                            </ul>
+                          </div>
+                          <div class="clear"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="edui-popup-caret up" style="top: -8px; left: 11px; position: absolute;">
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
         </div>
     </div>
-    <script type="text/javascript" src="latex.js"></script>
+    <script type="text/javascript" src="latex.js?v2"></script>
 </body>
 </html>
