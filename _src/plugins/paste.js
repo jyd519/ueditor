@@ -157,6 +157,21 @@ UE.plugins['paste'] = function () {
             }
             //执行默认的处理
             me.filterInputRule(root);
+            
+            //处理图片的复制粘贴
+            utils.each(root.getNodesByTagName('img'), function (img) {
+                var attrs = img.attrs, opt = me.options, url=attrs['_src'] || attrs['src'],
+                    localDomain=window.location.host;
+                
+                if (url.indexOf(localDomain)>0) {
+                    var newUrl = url.replace(/^.*:\/\/[^\/]*/, '');
+                    img.setAttr({
+                        src: newUrl,
+                        _src: newUrl
+                    });
+                }
+            });
+            
             //针对chrome的处理
             if (browser.webkit) {
                 var br = root.lastChild();

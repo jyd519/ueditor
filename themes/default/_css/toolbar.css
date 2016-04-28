@@ -8,6 +8,7 @@
     zoom: 1;
     width:auto;
     height:auto;
+    line-height: initial;
 }
 
 .edui-default .edui-toolbar .edui-button,
@@ -17,6 +18,7 @@
     margin: 1px;
 }
 .edui-default .edui-for-brackets .edui-label,
+.edui-default .edui-for-itemblank .edui-label,
 .edui-default .edui-for-roman1 .edui-label,
 .edui-default .edui-for-roman2 .edui-label,
 .edui-default .edui-for-roman3 .edui-label,

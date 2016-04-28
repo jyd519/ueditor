@@ -66,7 +66,7 @@
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
         'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts',
-        'brackets','roman1','roman2','roman3','roman4', 'insertlatex', 'pastelatex'];
+        'brackets','roman1','roman2','roman3','roman4', 'insertlatex', 'pastelatex', 'itemblank'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();

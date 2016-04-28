@@ -27,7 +27,7 @@ UE.I18N['zh-cn'] = {
         'webapp':'百度应用','touppercase':'字母大写', 'tolowercase':'字母小写','background':'背景','template':'模板','scrawl':'涂鸦',
         'music':'音乐','inserttable':'插入表格','drafts': '从草稿箱加载', 'charts': '图表',
         'brackets': '插入括号','roman1':'I.','roman2':'II.','roman3':'III.','roman4':'IV.',
-        'insertlatex': '插入公式', 'pastelatex': 'LaTex粘贴模式'
+        'insertlatex': '插入公式', 'pastelatex': 'LaTex粘贴模式', 'itemblank': '插入填空项'
     },
     btnMap : {
       'brackets' : { label: '( )' },
@@ -35,7 +35,8 @@ UE.I18N['zh-cn'] = {
       'roman2' : { label: 'II.' },
       'roman3' : { label: 'III.' },
       'roman4' : { label: 'IV.' },
-      'pastelatex' : { label: 'LaTex' }
+      'pastelatex' : { label: 'LaTex' },
+      'itemblank' : { label: ' __ ' }
     },
     'insertorderedlist':{
         'num':'1,2,3...',

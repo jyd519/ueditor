@@ -90,7 +90,7 @@
             'plugins/simpleupload.js',
             'plugins/serverparam.js',
             'plugins/insertfile.js',
-            'plugins/roman.number.js',
+            'plugins/custom.js',
             'plugins/insertlatex.js',
             'plugins/latexpaste.js',
             'ui/ui.js',
