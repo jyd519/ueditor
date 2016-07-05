@@ -105,7 +105,9 @@ UE.plugins['removeformat'] = function(){
                         next = domUtils.getNextDomNode( current, true, filter );
 
                         if ( !dtd.$empty[current.tagName.toLowerCase()] && !domUtils.isBookmarkNode( current ) ) {
-                            if ( tagReg.test( current.tagName ) ) {
+                          if (current.tagName == 'SPAN' && domUtils.hasClass(current, 'item-blank')){
+                            //reserved span
+                          } else if ( tagReg.test( current.tagName ) ) {
                                 if ( style ) {
                                     domUtils.removeStyle( current, style );
                                     if ( isRedundantSpan( current ) && style != 'text-decoration'){

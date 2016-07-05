@@ -30,7 +30,7 @@ UE.I18N['zh-cn'] = {
         'insertlatex': '插入公式', 'pastelatex': 'LaTex粘贴模式', 'itemblank': '插入填空项'
     },
     btnMap : {
-      'brackets' : { label: '( )' },
+      'brackets' : { label: '(  )' },
       'roman1' : { label: 'Ⅰ' },
       'roman2' : { label: 'Ⅱ' },
       'roman3' : { label: 'Ⅲ' },
