@@ -54,6 +54,9 @@ UE.plugins['removeformat'] = function(){
                 }
                 return !node.attributes.length;
             }
+            function isReservedSpan(node) {
+              return node.tagName == 'SPAN' && domUtils.hasClass(node, 'item-blank');
+            }
             function doRemove( range ) {
 
                 var bookmark1 = range.createBookmark();
@@ -82,14 +85,20 @@ UE.plugins['removeformat'] = function(){
 
                 //切开始
                 while ( (parent = node.parentNode) && !domUtils.isBlockElm( parent ) ) {
-                    domUtils.breakParent( node, parent );
+                    if (isReservedSpan(parent)) {
+                      break;
+                    }
 
+                    domUtils.breakParent( node, parent );
                     domUtils.clearEmptySibling( node );
                 }
                 if ( bookmark.end ) {
                     //切结束
                     node = bookmark.end;
                     while ( (parent = node.parentNode) && !domUtils.isBlockElm( parent ) ) {
+                        if (isReservedSpan(parent)) {
+                          break;
+                        }
                         domUtils.breakParent( node, parent );
                         domUtils.clearEmptySibling( node );
                     }
@@ -105,7 +114,7 @@ UE.plugins['removeformat'] = function(){
                         next = domUtils.getNextDomNode( current, true, filter );
 
                         if ( !dtd.$empty[current.tagName.toLowerCase()] && !domUtils.isBookmarkNode( current ) ) {
-                          if (current.tagName == 'SPAN' && domUtils.hasClass(current, 'item-blank')){
+                          if (isReservedSpan(current)){
                             //reserved span
                           } else if ( tagReg.test( current.tagName ) ) {
                                 if ( style ) {
@@ -153,7 +162,9 @@ UE.plugins['removeformat'] = function(){
                     if(range.startContainer === range.endContainer){
                         range.endOffset--;
                     }
-                    domUtils.remove(node);
+                    if (!isReservedSpan(node)) {
+                      domUtils.remove(node);
+                    }
                     node = tmp;
                 }
 
@@ -162,12 +173,11 @@ UE.plugins['removeformat'] = function(){
                     while(node.nodeType == 1 && domUtils.isEmptyNode(node) && dtd.$removeEmpty[node.tagName]){
                         tmp = node.parentNode;
                         range.setEndBefore(node);
-                        domUtils.remove(node);
-
+                        if (!isReservedSpan(node)) {
+                          domUtils.remove(node);
+                        }
                         node = tmp;
                     }
-
-
                 }
             }
 
