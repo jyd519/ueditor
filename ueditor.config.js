@@ -45,7 +45,8 @@
             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
             'print', 'preview', 'searchreplace', 'help', 'drafts',
-            'brackets', 'roman1', 'roman2', 'roman3', 'roman4', 'insertlatex', 'itemblank' 
+            'brackets', 'roman1', 'roman2', 'roman3', 'roman4', 'roman5', 'roman6',
+            'insertlatex', 'itemblank' 
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
