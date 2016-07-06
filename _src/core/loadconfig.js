@@ -1,6 +1,6 @@
 (function(){
   
-    //Cache ueditor config for reducing server requests
+    //Cache ueditor config for reducing num of server requests
     var _serverConfigCache = {};
 
     UE.Editor.prototype.loadServerConfig = function(){
@@ -13,12 +13,22 @@
                     isJsonp = utils.isCrossDomainUrl(configUrl);
 
                 var config = _serverConfigCache[configUrl];
-                if (config) {
-                    utils.extend(me.options, config);
+                if (!config) {
+                  config = { state: 0, editors: [] };
+                  _serverConfigCache[configUrl] = config;
+                }
+                if (config.state == 2) { //completed
+                    utils.extend(me.options, config.data);
                     me.fireEvent('serverConfigLoaded');
                     me._serverConfigLoaded = true;
                     return;
                 }
+                if (config.state == 1) {
+                  config.editors.push(me);
+                  return;
+                }
+
+                config.state = 1; //waiting for response
 
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
@@ -32,9 +42,19 @@
                             utils.extend(me.options, config);
                             me.fireEvent('serverConfigLoaded');
                             me._serverConfigLoaded = true;
-                            _serverConfigCache[configUrl] = config;
+                            var d = _serverConfigCache[configUrl];
+                            d.state = 2;
+                            d.data = config;
+                            var n = d.editors.length;
+                            for (var i=0; i<n; ++i) {
+                              utils.extend(d.editors[i].options, config);
+                              d.editors[i].fireEvent('serverConfigLoaded');
+                              d.editors[i]._serverConfigLoaded = true;
+                            }
+                            d.editors = [];
                         } catch (e) {
-                            delete _serverConfigCache[configUrl];
+                            _serverConfigCache[configUrl].state=2;
+                            _serverConfigCache[configUrl].data={};
                             showErrorMsg(me.getLang('loadconfigFormatError'));
                         }
                     },
