@@ -87,52 +87,101 @@ UE.commands['roman7'] = {
 };
 
 //填空项
-UE.commands['itemblank'] = {
-  execCommand: function(cmdName) {
-    var me = this;
-    var range = this.selection.getRange();
-    var node = this.selection.getRange().startContainer;
-    var inBlank = false;
-    if (!!node && node.nodeType == 1 && domUtils.hasClass(node, 'item-blank')) {
-      inBlank = true;
-    } else if (!!node) {
-      node = domUtils.findParentByTagName(node, 'span');
-      if (!!node && domUtils.hasClass(node, "item-blank")) {
-        inBlank = true;
-      }
-    }
-    if (inBlank) {
-      range.setEndBefore(node);
-      node.parentNode.removeChild(node);
-      range.select();
-      me.fireEvent("delitemblank");
-      return;
-    }
+UE.plugin.register('itemBlank', function() {
+  var editor = this;
 
-    this.execCommand('insertHtml', '<span class="item-blank"></span>&nbsp;');
-    me.fireEvent("additemblank");
-    return true;
-  },
-  queryCommandState: function() {
-    var node = this.selection.getRange().startContainer;
-    var inBlank = false;
-    if (!!node && node.nodeType == 1 && domUtils.hasClass(node, 'item-blank')) {
-      inBlank = true;
-    } else if(!!node) {
-      var span = domUtils.findParentByTagName(node, 'span');
-      if (!!span && domUtils.hasClass(span, "item-blank")) {
-        inBlank = true;
-      }
-    }
-    var blankDom = this.container.querySelector('.edui-for-itemblank');
-    if (inBlank) {
-       blankDom.querySelector('.edui-label').innerHTML = "&#x232b;";
-       blankDom.querySelector('.edui-button-body').setAttribute('title', '删除填空项');
-    } else {
-       blankDom.querySelector('.edui-label').innerHTML = " __ ";
-       blankDom.querySelector('.edui-button-body').setAttribute('title', '插入填空项');
-    }
-    return 0;
+  function isBlank(node) {
+    return node.nodeType == 1 && domUtils.hasClass(node, 'item-blank');
   }
-};
 
+  editor.addListener('keydown', function(t, evt) {
+    var keyCode = evt.keyCode || evt.which;
+    if (evt.ctrlKey && keyCode == 40) { //down arrow
+      var range = ue.selection.getRange();
+      var node = range.startContainer;
+      if (node.nodeType == 3) {
+        node = node.parentNode;
+      }
+      if (isBlank(node)) {
+        var text = ue.document.createTextNode('\xa0');
+        var next = node.nextSibling;
+        if (next) {
+          node.parentNode.insertBefore(text, next);
+        } else {
+          node.parentNode.appendChild(text);
+        }
+        range.setStart(text, 1);
+        range.setCursor();
+        return false;
+      }
+    } else if (evt.ctrlKey && keyCode == 38) { //up arrow
+      var range = ue.selection.getRange();
+      var node = range.startContainer;
+      if (node.nodeType == 3) {
+        node = node.parentNode;
+      }
+      if (isBlank(node)) {
+        var text = ue.document.createTextNode('\xa0');
+        var prev = node.previousSibling;
+        if (!prev) {
+          prev = node.parentNode.firstChild;
+        }
+        node.parentNode.insertBefore(text, prev);
+        range.setStart(text, 1);
+        range.setCursor();
+        return false;
+      }
+    }
+  });
+
+  editor.commands['itemblank'] = {
+
+    execCommand: function(cmdName) {
+      var me = this;
+      var range = this.selection.getRange();
+      var node = this.selection.getRange().startContainer;
+      var inBlank = false;
+
+      if (!!node && isBlank(node)) {
+        inBlank = true;
+      } else if (!!node) {
+        node = domUtils.findParentByTagName(node, 'span');
+        if (!!node && domUtils.hasClass(node, "item-blank")) {
+          inBlank = true;
+        }
+      }
+      if (inBlank) {
+        range.setEndBefore(node);
+        node.parentNode.removeChild(node);
+        range.select();
+        me.fireEvent("delitemblank");
+        return;
+      }
+
+      this.execCommand('insertHtml', '<span class="item-blank"></span> ');
+      me.fireEvent("additemblank");
+      return true;
+    },
+    queryCommandState: function() {
+      var node = this.selection.getRange().startContainer;
+      var inBlank = false;
+      if (!!node && isBlank(node)) {
+        inBlank = true;
+      } else if (!!node) {
+        var span = domUtils.findParentByTagName(node, 'span');
+        if (!!span && domUtils.hasClass(span, "item-blank")) {
+          inBlank = true;
+        }
+      }
+      var blankDom = this.container.querySelector('.edui-for-itemblank');
+      if (inBlank) {
+        blankDom.querySelector('.edui-label').innerHTML = "&#x232b;";
+        blankDom.querySelector('.edui-button-body').setAttribute('title', '删除填空项');
+      } else {
+        blankDom.querySelector('.edui-label').innerHTML = " __ ";
+        blankDom.querySelector('.edui-button-body').setAttribute('title', '插入填空项');
+      }
+      return 0;
+    }
+  };
+});
