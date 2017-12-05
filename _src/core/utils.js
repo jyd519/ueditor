@@ -459,7 +459,7 @@ var utils = UE.utils = {
      * ```
      */
     unhtml:function (str, reg) {
-        return str ? str.replace(reg || /[&<">'](?:(amp|lt|quot|gt|#39|nbsp|#\d+);)?/g, function (a, b) {
+        return str ? str.replace(reg || /[&<">'](?:(amp|reg|copy|lt|quot|gt|#39|nbsp|#\d+);)?/g, function (a, b) {
             if (b) {
                 return a;
             } else {
@@ -492,13 +492,15 @@ var utils = UE.utils = {
      * ```
      */
     html:function (str) {
-        return str ? str.replace(/&((g|l|quo)t|amp|#39|nbsp);/g, function (m) {
+        return str ? str.replace(/&((g|l|quo)t|amp|#39|nbsp|reg);/g, function (m) {
             return {
                 '&lt;':'<',
                 '&amp;':'&',
                 '&quot;':'"',
                 '&gt;':'>',
                 '&#39;':"'",
+                '&reg;' : '&reg;',
+                '&copy;' : '&copy;',
                 '&nbsp;':' '
             }[m]
         }) : '';
